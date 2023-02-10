@@ -61,23 +61,43 @@ E a categoria "${NOME_CATEGORIA}" deve ser exibida na página
     Verificar se aparece a categoria "${NOME_CATEGORIA}"    
 
 Quando pesquisar pelo produto "${PRODUTO}"
-    Digitar o nome de produto "${PRODUTO}" nocampo de pesquisa    
+    Digitar o nome de produto "${PRODUTO}" no campo de pesquisa    
     Clicar no botão de pesquisa
 
 E um produto da linha "${PRODUTO}" deve ser mostrado na página
     Verificar o resultado da pesquisa se está listando o produto "${PRODUTO}"
 
+Quando adicionar o produto "${PRODUTO}" no carrinho
+    Digitar o nome de produto "${PRODUTO}" no campo de pesquisa
+    Clicar no botão de pesquisa
+    Adicionar o produto "Xbox Series S" no carrinho
+    Verificar se o produto "Xbox Series S" foi adicionado com sucesso
+    
+Então o produto "Xbox Series S" deve ser mostrado no carrinho
+    Wait Until Element Is Visible    locator=//a[@data-csa-c-type='button']
+    Click Link    locator=//a[@data-csa-c-type='button']
+    Element Text Should Be    locator=//span[@class='a-truncate-cut'][contains(.,'Xbox Series S')]    expected=Console Xbox Series S
+    
+E existe o produto "${PRODUTO}" no carrinho
+    Quando adicionar o produto "${PRODUTO}" no carrinho
+    
+Quando remover o produto "Xbox Series S" do carrinho
+    Então o produto "Xbox Series S" deve ser mostrado no carrinho
+    Remover o produto "Xbox Series S" do carrinho
+
+Então o carrinho deve ficar vazio
+    Verificar se o carrinho fica vazio                    
+
 # Carrinho de compra
 
-Adicionar o produto "Console Xbox Series S" no carrinho
+Adicionar o produto "Xbox Series S" no carrinho
     Click Link    locator=(//a[contains(.,'Console Xbox Series S')])[1]
     Click Button    locator=//input[contains(@name,'submit.add-to-cart')]
 
-Verificar se o produto "Console Xbox Series S" foi adicionado com sucesso
+Verificar se o produto "Xbox Series S" foi adicionado com sucesso
     Element Should Be Visible    locator=//span[contains(.,'Adicionado ao carrinho')]    
 
-Remover o produto "Console Xbox Series S" do carrinho
-    Click Link    locator=//a[contains(@data-csa-c-type,'button')]
+Remover o produto "Xbox Series S" do carrinho
     Click Button    locator=//input[@value='Excluir']
 
 Verificar se o carrinho fica vazio
